@@ -1,3 +1,5 @@
+library(ctsmTMB)
+
 fit_model <- function(model, data, fit_path) {
   if (file.exists(fit_path)) {
     fit <- readRDS(fit_path)
@@ -6,4 +8,12 @@ fit_model <- function(model, data, fit_path) {
     saveRDS(fit, fit_path)
   }
   fit
+}
+
+extract_residuals <- function(fit) {
+  res <- residuals(fit)          # CTSM's generic; must not be shadowed
+  list(
+    yTwi = res$normalized[, "yTwi"],
+    yTwo = res$normalized[, "yTwo"]
+  )
 }
