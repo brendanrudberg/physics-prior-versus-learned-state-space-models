@@ -1,4 +1,4 @@
-data = readtable('C:\Users\rudbe\projects\IcelandData\temp_log_7_28_edited.csv');
+data = readtable('C:\Users\rudbe\projects\IcelandData\raw_data\temp_log_8_6_edited.csv');
 
 % Convert x from Unix epoch seconds to datetime
 x = datetime(data{:,5}, 'ConvertFrom', 'posixtime');
@@ -15,4 +15,4 @@ hold off
 xlabel('Time')
 ylabel('Temperature')
 legend('Inside Air', 'Inside Wall', 'Outside Wall', 'Outside Air')
-title('Temperature Data')
+title('Temperature of a Building Envelope in Reykjavík, Iceland')
