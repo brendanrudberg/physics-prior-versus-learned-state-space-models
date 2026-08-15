@@ -24,22 +24,24 @@ model$setVariance(yTwo ~ exp(e2))
 model$addInput(Tai, Tao)
 
 model$setParameter(
-  Ctot = c(initial = 10), #total wall heat capacity (estimated constant)
-  f = c(initial = 0.5,  lower = 0, upper = 1), #ratio between different wall section heat capacities
-  R1  = c(initial = 1,  lower = 1e-3, upper = 50), # thermal resistance of inner wall
-  R2  = c(initial = 1,  lower = 1e-3, upper = 50), # thermal resistance of middle layer
-  R3  = c(initial = 1,  lower = 1e-3, upper = 50), # thermal resistance of outer wall
+  Ctot = c(initial = 0.30 * 2400 * 880 / 3.6e6), #total wall heat capacity (estimated constant)
+  f   = c(initial = 0.5,  lower = 0, upper = 1), #ratio between different wall section heat capacities
+  R1  = c(initial = 1,  lower = 1e-3, upper = 1e3), # thermal resistance of inner wall
+  R2  = c(initial = 1,  lower = 1e-3, upper = 1e3), # thermal resistance of middle layer
+  R3  = c(initial = 1,  lower = 1e-3, upper = 1e3), # thermal resistance of outer wall
   p1  = c(initial = -1, lower = -30, upper = 10), # process noise for inner wall
   p2  = c(initial = -1, lower = -30, upper = 10), # process noise for outer wall
-  e1  = c(initial = -5), # measurement noise for inner wall (estimated constant)
-  e2  = c(initial = -5) # measurement noise for outer wall (estimated constant)
+  e1 = c(initial = -8),
+  e2 = c(initial = -8)
+  #e1  = c(initial = -5), # measurement noise for inner wall (estimated constant)
+  #e2  = c(initial = -5) # measurement noise for outer wall (estimated constant)
 )
 
 model$setInitialState(list(c(dat$yTwi[1], dat$yTwo[1]), diag(2))) # Setting the initial state 
 # of the system based on the first measured values of Twi and Two, with a diagonal covariance matrix.
 
 # Fitting the model (new file if it doesn't exist, otherwise read from file)
-fit_path <- "processed_data/fit_wall_2c_Ctot5_e-5.rds"
+fit_path <- "processed_data/fit_wall_2c_Ctot_e-8.rds"
 
 if (file.exists(fit_path)) {
   fit <- readRDS(fit_path)
