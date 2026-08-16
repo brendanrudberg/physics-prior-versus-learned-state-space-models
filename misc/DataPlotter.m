@@ -1,4 +1,4 @@
-data = readtable('C:\Users\rudbe\projects\IcelandData\raw_data\temp_log_8_6_edited.csv');
+data = readtable('C:\Users\rudbe\projects\IcelandData\raw_data\temp_log_8_6_trimmed_2.csv');
 
 % Convert x from Unix epoch seconds to datetime
 x = datetime(data{:,5}, 'ConvertFrom', 'posixtime');
