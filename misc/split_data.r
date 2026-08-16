@@ -98,4 +98,12 @@ dir.create("processed_data/splits", recursive = TRUE, showWarnings = FALSE)
 saveRDS(train,   "processed_data/splits/train.rds")
 saveRDS(test,    "processed_data/splits/test.rds")
 saveRDS(embargo, "processed_data/splits/embargo.rds")
+
+test <- readRDS("processed_data/splits/test.rds")
+test_inputs <- test[, c("t", "Tai", "Tao", "G")]     # what models may see
+test_truth  <- test[, c("t", "yTwi", "yTwo")]         # reserved for scoring only
+saveRDS(test_inputs, "processed_data/splits/test_inputs.rds")
+saveRDS(test_truth,  "processed_data/splits/test_truth.rds")
+
 cat("\nwrote train.rds / test.rds / embargo.rds to processed_data/splits/\n")
+
