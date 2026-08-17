@@ -19,23 +19,23 @@ build_lbb_2s <- function(data) {
   model$addInput(Tai, Tao, G)
 
   model$setParameter(
-    A11 = c(initial = 0, lower = -10, upper = 10), # Inner wall temperature coefficient
-    A12 = c(initial = 0, lower = -10, upper = 10), # Outer wall temperature coefficient
-    A21 = c(initial = 0, lower = -10, upper = 10), # Inner wall temperature coefficient
-    A22 = c(initial = 0, lower = -10, upper = 10), # Outer wall temperature coefficient
-    B11 = c(initial = 0, lower = -10, upper =  10), # Inner wall air temperature coefficient
-    B12 = c(initial = 0, lower = -10, upper =  10), # Outer wall air temperature coefficient
-    B21 = c(initial = 0, lower = -10, upper =  10), # Inner wall air temperature coefficient
-    B22 = c(initial = 0, lower = -10, upper =   10), # Outer wall air temperature coefficient
-    B13 = c(initial = 0, lower = -10, upper =   10), # Inner wall solar coefficient
-    B23 = c(initial = 0, lower = -10, upper =   10), # Outer wall solar coefficient
-    p1 = c(initial = -1, lower = -30, upper = 10), # process noise for inner wall
-    p2 = c(initial = -1, lower = -30, upper = 10), # process noise for outer wall
+    A11 = c(initial = 0, lower = -10, upper = 10),
+    A12 = c(initial = 0, lower = -10, upper = 10),
+    A21 = c(initial = 0, lower = -10, upper = 10),
+    A22 = c(initial = 0, lower = -10, upper = 10),
+    B11 = c(initial = 0, lower = -10, upper = 10),
+    B12 = c(initial = 0, lower = -10, upper = 10),
+    B21 = c(initial = 0, lower = -10, upper = 10),
+    B22 = c(initial = 0, lower = -10, upper = 10),
+    B13 = c(initial = 0, lower = -10, upper = 10),
+    B23 = c(initial = 0, lower = -10, upper = 10),
+    p1 = c(initial = -1, lower = -30, upper = 10),
+    p2 = c(initial = -1, lower = -30, upper = 10),
     e1 = c(initial = -8),
     e2 = c(initial = -8)
-)
+  )
 
-  model$setInitialState(list(c(data$yTwi[1], data$yTwo[1]), diag(2))) # Setting the initial state 
+  model$setInitialState(list(c(data$yTwi[1], data$yTwo[1]), diag(2))) # Setting the initial state
   # of the system based on the first measured values of Twi and Two, with a diagonal covariance matrix.
 
   model
