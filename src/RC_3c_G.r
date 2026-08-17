@@ -8,10 +8,10 @@ build_3c_G <- function(data) {
   model$addSystem(dTwi ~ ((Tai - Twi)/(R1*(f1*Ctot)) + (Twm - Twi)/(R2*(f1*Ctot))) * dt + exp(p1)*dw1)
 
   #Middle wall temperature ODE
-  model$addSystem(dTwm ~ ((Twi - Twm)/(R2*(f2*(1-f1)*Ctot)) + (Two - Twm)/(R3*(f2*(1-f1)*Ctot))) * dt + exp(p3)*dw3)
+  model$addSystem(dTwm ~ ((Twi - Twm)/(R2*(f2*(1-f1)*Ctot)) + (Two - Twm)/(R3*(f2*(1-f1)*Ctot))) * dt + exp(p3)*dw2)
 
   #Outer wall temperature ODE
-  model$addSystem(dTwo ~ ((Twm - Two)/(R3*((1-f2)*(1-f1)*Ctot)) + (Tao - Two)/(R4*((1-f2)*(1-f1)*Ctot)) + (Aw*G)/((1-f2)*(1-f1)*Ctot)) * dt + exp(p2)*dw2)
+  model$addSystem(dTwo ~ ((Twm - Two)/(R3*((1-f2)*(1-f1)*Ctot)) + (Tao - Two)/(R4*((1-f2)*(1-f1)*Ctot)) + (Aw*G)/((1-f2)*(1-f1)*Ctot)) * dt + exp(p2)*dw3)
 
   # Adding observations based on the measured wall temperatures
   model$addObs(yTwi ~ Twi)

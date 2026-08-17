@@ -1,6 +1,6 @@
 library(ctsmTMB)
 
-fit_rc <- function(model, data, fit_path) {
+fit_ctsm <- function(model, data, fit_path) {
   if (file.exists(fit_path)) {
     fit <- readRDS(fit_path)
   } else {

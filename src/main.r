@@ -1,12 +1,12 @@
 source("src/diag.r") 
 source("src/RC_2c.r")
-source("src/RC_family.r")
+source("src/ctsm.r")
 source("src/RC_2c_G.r")
 source("src/RC_3c_G.r")
 
 data <- readRDS("processed_data/splits/train.rds")
 model <- build_2c_G(data)
-fit <- fit_rc(model, data, "processed_data/splits/fit_train.rds")
+fit <- fit_ctsm(model, data, "processed_data/splits/fit_train.rds")
 
 
 fit_summary <- summary(fit)
