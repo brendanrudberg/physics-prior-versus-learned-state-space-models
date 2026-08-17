@@ -1,16 +1,11 @@
 library(ctsmTMB)
 
-fit_ctsm <- function(model, data, fit_path) {
-  if (file.exists(fit_path)) {
-    fit <- readRDS(fit_path)
-  } else {
-    fit <- model$estimate(data, ode.timestep = 1/60)
-    saveRDS(fit, fit_path)
-  }
+fit_ctsm <- function(model, training) {
+  fit <- model$estimate(training, ode.timestep = 1/60)
   fit
 }
 
-predict_ctsm <- function(fit, test_inputs) {
+predict_ctsm <- function(model, test_inputs) {
   d <- test_inputs                 # has t, Tai, Tao, G
   d$yTwi <- NA_real_               # add blanked observation columns
   d$yTwo <- NA_real_
