@@ -6,7 +6,7 @@ source("src/RC_3c_G.r")
 
 data <- readRDS("processed_data/splits/train.rds")
 model <- build_2c_G(data)
-fit <- fit_RC(model, data, "processed_data/splits/fit_train.rds")
+fit <- fit_rc(model, data, "processed_data/splits/fit_train.rds")
 
 
 fit_summary <- summary(fit)
