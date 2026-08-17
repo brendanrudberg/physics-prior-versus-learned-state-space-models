@@ -6,11 +6,15 @@ fit_ctsm <- function(model, training) {
 }
 
 predict_ctsm <- function(model, test_inputs) {
-  d <- test_inputs                 # has t, Tai, Tao, G
-  d$yTwi <- NA_real_               # add blanked observation columns
-  d$yTwo <- NA_real_
-  pr <- fit$predict(data = d, k.ahead = nrow(d) - 1, method = "ekf")
-  list(yTwi = ..., yTwo = ...)     # extract forward-predicted trajectory
+  d <- test_inputs
+  d$yTwi <- NA_real_; d$yTwo <- NA_real_
+  pr <- model$predict(data = d, k.ahead = nrow(d) - 1, method = "ekf",
+                    ode.timestep = 1/60)
+  list(
+    t    = pr$observations[, "t.j"],
+    yTwi = pr$observations[, "yTwi"],
+    yTwo = pr$observations[, "yTwo"]
+  )
 }
 
 extract_residuals <- function(fit) {

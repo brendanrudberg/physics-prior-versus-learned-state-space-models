@@ -31,8 +31,6 @@ build_2c <- function(data) {
     p2  = c(initial = -1, lower = -30, upper = 10), # process noise for outer wall
     e1 = c(initial = -8),
     e2 = c(initial = -8)
-    #e1  = c(initial = -5), # measurement noise for inner wall (estimated constant)
-    #e2  = c(initial = -5) # measurement noise for outer wall (estimated constant)
   )
 
   model$setInitialState(list(c(data$yTwi[1], data$yTwo[1]), diag(2))) # Setting the initial state 
