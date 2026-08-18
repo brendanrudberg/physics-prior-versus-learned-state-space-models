@@ -1,6 +1,6 @@
 library(ctsmTMB)
 
-build_2c <- function(data) {
+build_2c <- function(training) {
 
   model <- ctsmTMB$new()
 
@@ -33,7 +33,7 @@ build_2c <- function(data) {
     e2 = c(initial = -8)
   )
 
-  model$setInitialState(list(c(data$yTwi[1], data$yTwo[1]), diag(2))) # Setting the initial state 
+  model$setInitialState(list(c(training$yTwi[1], training$yTwo[1]), diag(2))) # Setting the initial state 
   # of the system based on the first measured values of Twi and Two, with a diagonal covariance matrix.
 
   model

@@ -1,6 +1,6 @@
 library(ctsmTMB)
 
-build_2c_G <- function(data) {
+build_2c_G <- function(training) {
 
   model <- ctsmTMB$new()
 
@@ -34,7 +34,7 @@ build_2c_G <- function(data) {
     Aw = c(initial = 0.5, lower = 0, upper = 10) # Solar aperature constant
   )
 
-  model$setInitialState(list(c(data$yTwi[1], data$yTwo[1]), diag(2))) # Setting the initial state 
+  model$setInitialState(list(c(training$yTwi[1], training$yTwo[1]), diag(2))) # Setting the initial state 
   # of the system based on the first measured values of Twi and Two, with a diagonal covariance matrix.
 
   model

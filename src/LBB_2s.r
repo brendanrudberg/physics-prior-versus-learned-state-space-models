@@ -1,6 +1,6 @@
 library(ctsmTMB)
 
-build_lbb_2s <- function(data) {
+build_LBB_2s <- function(data) {
 
   model <- ctsmTMB$new()
   #x* = Ax + Bu + w
@@ -39,8 +39,4 @@ build_lbb_2s <- function(data) {
   # of the system based on the first measured values of Twi and Two, with a diagonal covariance matrix.
 
   model
-}
-
-predict_lbb <- function(model, data) {
-  model$predict(data)
 }

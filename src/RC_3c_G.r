@@ -1,6 +1,6 @@
 library(ctsmTMB)
 
-build_3c_G <- function(data) {
+build_3c_G <- function(training) {
 
   model <- ctsmTMB$new()
 
@@ -40,8 +40,8 @@ build_3c_G <- function(data) {
     Aw = c(initial = 0.5, lower = 0, upper = 10) # Solar aperature constant
   )
 
-  mid0 <- mean(c(data$yTwi[1], data$yTwo[1]))
-  model$setInitialState(list(c(data$yTwi[1], mid0, data$yTwo[1]), diag(3)))
+  mid0 <- mean(c(training$yTwi[1], training$yTwo[1]))
+  model$setInitialState(list(c(training$yTwi[1], mid0, training$yTwo[1]), diag(3)))
 
   model
 }
