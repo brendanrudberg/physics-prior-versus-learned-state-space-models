@@ -85,6 +85,7 @@ cat("window start:", format(start), "\n")
 cat("rows:", nrow(dat), "| NA counts:\n"); print(colSums(is.na(dat)))
 
 dir.create("processed_data", recursive = TRUE, showWarnings = FALSE)
+dir.create("processed_data/preprocessed_raw", recursive = TRUE, showWarnings = FALSE)
 saveRDS(dat, "processed_data/preprocessed_raw/temp_log_33d_solar.rds")
 
 # ============================================================

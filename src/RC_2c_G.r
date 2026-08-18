@@ -1,6 +1,6 @@
 library(ctsmTMB)
 
-build_2c_G <- function(training) {
+build_RC_2c_G <- function(training) {
 
   model <- ctsmTMB$new()
 
@@ -29,8 +29,8 @@ build_2c_G <- function(training) {
     R3  = c(initial = 1,  lower = 1e-3, upper = 1e3), # thermal resistance of outer wall
     p1  = c(initial = -1, lower = -30, upper = 10), # process noise for inner wall
     p2  = c(initial = -1, lower = -30, upper = 10), # process noise for outer wall
-    e1 = c(initial = -8), # measurement noise for inner wall (estimated constant)
-    e2 = c(initial = -8), # measurement noise for outer wall (estimated constant)
+    e1 = c(initial = -8, lower = -30, upper = 10),
+    e2 = c(initial = -8, lower = -30, upper = 10),
     Aw = c(initial = 0.5, lower = 0, upper = 10) # Solar aperature constant
   )
 

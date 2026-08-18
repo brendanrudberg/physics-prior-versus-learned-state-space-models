@@ -1,6 +1,6 @@
 library(ctsmTMB)
 
-build_3c_G <- function(training) {
+build_RC_3c_G <- function(training) {
 
   model <- ctsmTMB$new()
 
