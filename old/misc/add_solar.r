@@ -100,18 +100,14 @@ wall_irradiance <- function(ghi, azimuth, zenith, doy, wall_az, albedo = 0.2) {
   pmax(total, 0)
 }
 
-sensor_irradiance <- function(hr, doy, timezone, lat, lon, wall_az, albedo = 0.2) {
+sensor_irradiance <- function(ghi, hr, doy, timezone, lat, lon, wall_az, albedo = 0.2) {
   pos <- sun_pos(hr, doy, timezone, lat, lon)
-  ghi <- clearsky_ghi(pos$zenith, doy)
   wall_irradiance(ghi, pos$azimuth, pos$zenith, doy, wall_az, albedo = albedo) 
 }
 
-add_solar <- function(dat,
-                      doy_start = 187,          # July 6 = t=0
-                      timezone  = 0,            # Reykjavik UTC+0
-                      lat       = 64.1355,
-                      lon       = -21.8954,
-                      wall_az   = 5.17) {       # wall facing, radians (north=0)
-  dat$G <- sensor_irradiance(dat$t, doy_start, timezone, lat, lon, wall_az)
-  dat
+add_solar <- function(dat, doy_start = 185, timezone = 0,
+                      lat = 64.1355, lon = -21.8954, wall_az = 5.17) {
+  dat$G <- sensor_irradiance(dat$G, dat$t, doy_start, timezone, lat, lon, wall_az)
+  saveRDS(dat, "processed_data/preprocessed_raw/temp_log_33d_solar_geometric.rds")
+  dat                                          # return the frame
 }

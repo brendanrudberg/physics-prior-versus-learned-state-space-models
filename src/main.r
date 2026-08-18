@@ -9,7 +9,7 @@ source("src/RC_2c.r")
 source("src/RC_3c_G.r")
 
 
-training <- readRDS("processed_data/splits/train.rds") # Read training data set
+training <- readRDS("processed_data/geometric_splits/geometric_train.rds") # Read training data set
 #========================================
 # White Box Models
 #========================================
@@ -31,7 +31,7 @@ saveRDS(model, "processed_data/models/LBL.rds")
 #========================================
 
 #========== 2 capacitor model ==========
-if (TRUE) {
+if (FALSE) {
 model <- build_RC_2c(training) # Build 2 capacitor model
 fit <- fit_ctsm(model, training)
 saveRDS(model, "processed_data/models/fit_RC_2c")

@@ -3,12 +3,12 @@ library(ctsmTMB)
 build_RC_4c_G <- function(training) {
 
   model <- ctsmTMB$new()
-  #T1: Inside air temperature
+  #Tai = T1: Inside air temperature
   #T2: Inner wall temperature
   #T3: Inner-middle wall temperature
   #T4: Middle-outer wall temperature
   #T5: Outer wall temperature
-  #T6: Outside air temperature
+  #Tao = T6: Outside air temperature
 
   #Inner wall temperature ODE
   model$addSystem(dT2 ~ ((Tai - T2)/(R1*(f1*Ctot)) + (T3 - T2)/(R2*(f1*Ctot))) * dt + exp(p1)*dw1)
@@ -17,10 +17,10 @@ build_RC_4c_G <- function(training) {
   model$addSystem(dT3 ~ ((T2 - T3)/(R2*(f2*(1-f1)*Ctot)) + (T4 - T3)/(R3*(f2*(1-f1)*Ctot))) * dt + exp(p2)*dw2)
 
   #Middle-outer wall temperature ODE
-  model$addSystem(dT4 ~ ((T3 - T4)/(R3*(f2*(1-f1)*Ctot)) + (T5 - T4)/(R4*(f2*(1-f1)*Ctot))) * dt + exp(p3)*dw2)
+  model$addSystem(dT4 ~ ((T3 - T4)/(R3*(f3*(1-f2)*(1-f1)*Ctot)) + (T5 - T4)/(R4*(f3*(1-f2)*(1-f1)*Ctot))) * dt + exp(p3)*dw3)
 
   #Outer wall temperature ODE
-  model$addSystem(dT5 ~ ((T4 - T5)/(R4*((1-f2)*(1-f1)*Ctot)) + (Tao - T5)/(R5*((1-f2)*(1-f1)*Ctot)) + (Aw*G)/((1-f2)*(1-f1)*Ctot)) * dt + exp(p4)*dw3)
+  model$addSystem(dT5 ~ ((T4 - T5)/(R4*((1-f3)*(1-f2)*(1-f1)*Ctot)) + (Tao - T5)/(R5*((1-f3)*(1-f2)*(1-f1)*Ctot)) + (Aw*G)/((1-f3)*(1-f2)*(1-f1)*Ctot)) * dt + exp(p4)*dw4)
 
   # Adding observations based on the measured wall temperatures
   model$addObs(yTwi ~ T2)
@@ -35,8 +35,9 @@ build_RC_4c_G <- function(training) {
 
   model$setParameter(
     Ctot = c(initial = 0.30 * 2400 * 880 / 3.6e6), #total wall heat capacity (estimated constant)
-    f1 = c(initial = 0.33, lower = 1e-3, upper = 0.999), #ratio between different wall section heat capacities
-    f2 = c(initial = 0.5,  lower = 1e-3, upper = 0.999), #ratio between different wall section heat capacities
+    f1 = c(initial = 0.25, lower = 1e-3, upper = 0.999), #ratio between different wall section heat capacities
+    f2 = c(initial = 0.33,  lower = 1e-3, upper = 0.999), #ratio between different wall section heat capacities
+    f3 = c(initial = 0.5,  lower = 1e-3, upper = 0.999), #ratio between different wall section heat capacities
     R1  = c(initial = 1,  lower = 1e-3, upper = 1e3), # thermal resistance of inside air-inner wall
     R2  = c(initial = 1,  lower = 1e-3, upper = 1e3), # thermal resistance of inner wall-middle inner wall
     R3  = c(initial = 1,  lower = 1e-3, upper = 1e3), # thermal resistance of middle inner wall-middle outer wall
