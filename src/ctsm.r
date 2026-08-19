@@ -1,7 +1,7 @@
 library(ctsmTMB)
 
 fit_ctsm <- function(model, training) {
-  fit <- model$estimate(training, ode.timestep = 1/60)
+  fit <- model$estimate(training, ode.timestep = 1/60, control = list(rel.tol = 1e-6))
   fit
 }
 
@@ -10,7 +10,7 @@ predict_ctsm <- function(model, test_input) {
   d$yTwi <- NA_real_                  # add blanked observation columns to d
   d$yTwo <- NA_real_
   pr <- model$predict(data = d, k.ahead = nrow(d) - 1, method = "ekf",
-                      ode.timestep = 1/60, use.hessian = FALSE)
+                      ode.timestep = 1/60, use.hessian = TRUE, control = list(rel.tol = 1e-6))
   list(
     t    = pr$observations[, "t.j"],
     yTwi = pr$observations[, "yTwi"],
