@@ -1,9 +1,11 @@
 library(ctsmTMB)
 
 fit_ctsm <- function(model, training) {
-  fit <- model$estimate(training, ode.timestep = 1/60, control = list(rel.tol = 1e-6))
+  fit <- model$estimate(training, ode.timestep = 1/60)
   fit
 }
+
+#control = list(rel.tol = 1e-6)
 
 predict_ctsm <- function(model, test_input) {
   d <- test_input                    # copy the input frame
